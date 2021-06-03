@@ -2,7 +2,7 @@
 Read this file to know what i modify and what it do.
 
 ## Some notice
-I see the original repos seems no changes anymore. Unfortunately some API is deprecated and well, I change it a bit. I hope you enjoy it. 
+I see the original repos seems no changes for 2 years, I also noticed that some API is deprecated and well, and some of them aren't working anymore, I change it a little bit so it would better. Like what the README said, Use WebRTC for doing Professional VoIP thing. Anyways i hope you enjoy it. 
 
 ## Backend Changes
 ### 1. I modified `server.js`
