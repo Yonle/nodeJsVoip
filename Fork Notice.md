@@ -26,6 +26,7 @@ Due to deprecated old API `navigator.getUserMedia`, I replaced it with the new o
  - AudioOscillator
  - BiquadFilter
  - DynamicCompression
+
 Disabled those function for Actual Mic audio quality. Keep in mind that this will transmit a lot of data in second. Not only that, Noice Suppression is not available due to disabled of these function and can caused your Speaker Sound to be listened by your mic.
 
 ### 4. I removed `socket.io.js`
