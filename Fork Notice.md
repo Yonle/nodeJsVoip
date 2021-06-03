@@ -14,13 +14,18 @@ Into:
 ```js
 var io = require('socket.io')(server, { log: false });
 ```
+#### V2.0 Changes
+Added Room handler as well.
+
 ## Frontend Changes
 ### 1. I modified `index.html`
 I added **Viewport** so mobile user can visit it in responsive page. Also changed width of two canvas (Both Input and output audio) into `100%` so both canvas will have a same width with user screen width. Changed Socket.io script path (`/socket.io/socket.io.js`), And moved **Start Taking** to Bottom Screen.
 
+#### V2.0 Changes
+Added `input` with `button` element for changing room.
+
 ### 2. I modified `main.css`
 Because i don't want to get any stress, The **Start Button** and both Input and Output canvas is modified with this blank file into actual CSS file.
-
 ### 3. I modified `voip.js`
 Due to deprecated old API `navigator.getUserMedia`, I replaced it with the new ones as `navigator.mediaDevices.getUserMedia`, Also disabled those function for clean/fresh audio quality:
  - AudioOscillator
@@ -29,8 +34,13 @@ Due to deprecated old API `navigator.getUserMedia`, I replaced it with the new o
 
 Keep in mind that this will transmit a lot of data in second. Not only that, Noise Suppression is not available because i disabled these function and can caused your Speaker Sound to be listened by your mic.
 
+#### V2.0 Changes
+I added change Room support, Well.
 ### 4. I removed `socket.io.js`
 From earlier, Socket.io already gave a path to their socket.io script from beginning: `/socket.io/socket.io.js`. So i guess we do not need it either way.
+
+### 5. I modified `main.js`
+This file changed on version v2.0. Also like i said before, Added Submit button trigger so we can change room.
 
 ## Any question?
 I active both Discord and Telegram. So you can ask at those chat platform:

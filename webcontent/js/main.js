@@ -3,7 +3,13 @@ $(document).ready(function () {
 		$(this).hide();
 		startTalking();
 	});
+	$("#changeRoom").click(function () {
+		if (socketConnected) socketIO.emit("room:change", document.querySelector("#roomInput").value);
+		recentRoom = document.querySelector("#roomInput").value.toUpperCase();
+	});
 
+	document.getElementById("roomInput").oninput = () => document.querySelector("#roomInput").value = document.querySelector("#roomInput").value.toUpperCase();
+	
 	var micaudio = document.getElementById("micaudio");
 	var micctx = micaudio.getContext("2d");
 	micctx.fillStyle = "#FF0000";

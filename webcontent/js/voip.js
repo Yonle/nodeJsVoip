@@ -1,5 +1,5 @@
 var socketIO = io();
-
+var recentRoom = "MAIN";
 var soundcardSampleRate = null; //Sample rate from the soundcard (is set at mic access)
 var mySampleRate = 48000; //Samplerate outgoing audio (common: 8000, 12000, 16000, 24000, 32000, 48000)
 var myBitRate = 16; //8,16,32 - outgoing bitrate
@@ -22,7 +22,10 @@ function hasGetUserMedia() {
 socketIO.on('connect', function (socket) {
 	console.log('socket connected!');
 	socketConnected = true;
-
+	if (recentRoom) {
+		socketIO.emit('room:change', recentRoom);
+		document.getElementById("roomInput").value = "MAIN";
+	}
 	socketIO.on('d', function (data) {
 		if (micAccessAllowed) {
 			var audioData = onUserCompressedAudio(data["a"], data["sid"], data["s"], data["b"]);
@@ -40,7 +43,8 @@ socketIO.on('connect', function (socket) {
 	});
 
 	socketIO.on('clients', function (cnt) {
-		$("#clients").text(cnt);
+		document.getElementById("roomInput").value = recentRoom;
+		document.getElementById("clients").innerHTML = `<b>${cnt-1}</b> user in <b>${recentRoom}</b> Room.`;
 	});
 });
 

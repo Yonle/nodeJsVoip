@@ -25,24 +25,24 @@ const listener = server.listen(PORT, "0.0.0.0", () => {
 	console.log(`[i] Now visit https://${listener.address().address}:${listener.address().port} in your browser and ignore SSL Warning.`)
 });
 
-var io = require('socket.io')(server, { log: false });
+var io = require("socket.io")(server, { log: false });
 
 //Handel connections
-io.sockets.on('connection', function (socket) {
-	console.log("[i] New user connected:", socket.id);
-	io.emit('clients', io.engine.clientsCount);
+io.on('connection', function (socket) {
+	let roomID = "MAIN";
 
-	socket.on('disconnect', function () {
-		console.log("[i] User disconnected:", socket.id);
-		socket.broadcast.emit('clients', io.engine.clientsCount);
+	socket.join(roomID);
+	io.to(roomID).emit('clients', io.to(roomID).engine.clientsCount);
+	socket.on('room:change', name => {
+		socket.leave(roomID);
+		roomID = name.toUpperCase();
+		socket.join(roomID);
+		io.to(roomID).emit('clients', io.to(roomID).engine.clientsCount);
+	});
+	socket.on('d', data => {
+		socket.to(roomID).emit('d', data);
 	});
 
-	socket.on('d', function (data) {
-		data["sid"] = socket.id;
-		//console.log(data["a"]);
-		socket.broadcast.emit('d', data); //Send to all but the sender
-		//io.emit("d", data); //Send to all clients (4 debugging)
-	});
 });
 
 // Clean Exit
