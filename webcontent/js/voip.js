@@ -169,8 +169,9 @@ function startTalking() {
 			dynCompressor.connect(node);
 			*/
 			node.connect(context.destination);
-		}, function (err) {
+		}).catch(function (err) {
 			console.log(err);
+			alert(err);
 		});
 	} else {
 		alert('getUserMedia() is not supported in your browser');
