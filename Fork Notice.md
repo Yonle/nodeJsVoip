@@ -21,7 +21,7 @@ I added **Viewport** so mobile user can visit it in responsive page. Also change
 ### 2. I modified `main.css`
 Because i don't want to get any stress, The **Start Button** and both Input and Output canvas is modified with this blank file into actual CSS file.
 
-### 3. I modified `main.js`
+### 3. I modified `voip.js`
 Due to deprecated old API `navigator.getUserMedia`, I replaced it with the new ones as `navigator.mediaDevices.getUserMedia`, Also disabled those function for clean/fresh audio quality:
  - AudioOscillator
  - BiquadFilter
