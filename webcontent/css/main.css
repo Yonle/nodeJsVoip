@@ -1,0 +1,11 @@
+#micaudio, #incaudio {
+	border: 1px solid;
+	width: 100%;
+}
+
+#startBtn {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+}

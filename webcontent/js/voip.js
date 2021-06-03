@@ -1,9 +1,9 @@
 var socketIO = io();
 
 var soundcardSampleRate = null; //Sample rate from the soundcard (is set at mic access)
-var mySampleRate = 12000; //Samplerate outgoing audio (common: 8000, 12000, 16000, 24000, 32000, 48000)
+var mySampleRate = 48000; //Samplerate outgoing audio (common: 8000, 12000, 16000, 24000, 32000, 48000)
 var myBitRate = 16; //8,16,32 - outgoing bitrate
-var myMinGain = 3 / 100; //min Audiolvl
+var myMinGain = 0 / 100; //min Audiolvl, Used for Ignoring Silence. Set as 3 / 100 for Ignoring Silence
 var micAccessAllowed = false; //Is set to true if user granted access
 var chunkSize = 1024;
 
@@ -13,11 +13,10 @@ var upSampleWorker = new Worker('./js/voipWorker.js');
 var socketConnected = false; //is true if client is connected
 var steamBuffer = {}; //Buffers incomeing audio
 
-var oscillator;
+//var oscillator;
 
 function hasGetUserMedia() {
-	return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
-		navigator.mozGetUserMedia || navigator.msGetUserMedia);
+	return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
 }
 
 socketIO.on('connect', function (socket) {
@@ -81,15 +80,14 @@ function startTalking() {
 	if (hasGetUserMedia()) {
 		var context = new window.AudioContext || new window.webkitAudioContext;
 		soundcardSampleRate = context.sampleRate;
-		navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
-		navigator.getUserMedia({ audio: true }, function (stream) {
+		navigator.mediaDevices.getUserMedia({ audio: true }).then(function (stream) {
 			micAccessAllowed = true;
 			var liveSource = context.createMediaStreamSource(stream);
 
-			oscillator = context.createOscillator();
+		/*	oscillator = context.createOscillator();
 			oscillator.type = 'sine';
 			oscillator.frequency.value = 440; // value in hertz
-
+		*/
 			// create a ScriptProcessorNode
 			if (!context.createScriptProcessor) {
 				node = context.createJavaScriptNode(chunkSize, 1, 1);
@@ -141,6 +139,7 @@ function startTalking() {
 				}
 			}
 
+			/* For clean audio from mic, I disabled some code
 			//Lowpass
 			biquadFilter = context.createBiquadFilter();
 			biquadFilter.type = "lowpass";
@@ -148,12 +147,15 @@ function startTalking() {
 
 			oscillator.connect(biquadFilter);
 			//oscillator.start();
+			*/
 
-			liveSource.connect(biquadFilter);
+			//liveSource.connect(biquadFilter);
+			
+			liveSource.connect(node);
+			// Connect to AudioNode
 
 
-
-
+			/* Enable for dynamic compression
 			//Dynamic Compression
 			dynCompressor = context.createDynamicsCompressor();
 			dynCompressor.threshold.value = -25;
@@ -165,7 +167,7 @@ function startTalking() {
 
 			biquadFilter.connect(dynCompressor); //biquadFilter infront
 			dynCompressor.connect(node);
-
+			*/
 			node.connect(context.destination);
 		}, function (err) {
 			console.log(err);

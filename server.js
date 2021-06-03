@@ -1,6 +1,6 @@
 /* CONFIG */
-var SSLPORT = 443; //Default 443
-var HTTPPORT = 80; //Default 80 (Only used to redirect to SSL port)
+var SSLPORT = 3000; //Default 443
+var HTTPPORT = 3001; //Default 80 (Only used to redirect to SSL port)
 var privateKeyPath = "./cert/key.pem"; //Default "./cert/key.pem"
 var certificatePath = "./cert/cert.pem"; //Default "./cert/cert.pem"
 
@@ -21,7 +21,7 @@ var server = https.createServer({
     cert: certificate
 }, app).listen(SSLPORT);
 
-var io  = require('socket.io').listen(server, { log: false });
+var io  = require('socket.io')(server, { log: false });
 
 // Redirect from http to https
 var http = require('http');
