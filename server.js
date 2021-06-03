@@ -55,8 +55,7 @@ exitevent.forEach(event => {
 
 function exit() {
 	console.warn("[w] Server is now going down! Closing server...");
-	server.close(() => {
-		console.log("[i] Server closed. Exitting...");
-		process.exit(0);
-	});
+	server.close();
+	console.log("[i] Server closed. Exitting...");
+	process.exit(0);
 }
