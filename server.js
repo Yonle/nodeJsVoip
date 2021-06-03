@@ -1,6 +1,5 @@
 /* CONFIG */
-var SSLPORT = 3000; //Default 443
-var HTTPPORT = 3001; //Default 80 (Only used to redirect to SSL port)
+var PORT = process.env.PORT || 8080;
 var privateKeyPath = "./cert/key.pem"; //Default "./cert/key.pem"
 var certificatePath = "./cert/cert.pem"; //Default "./cert/cert.pem"
 
@@ -19,26 +18,22 @@ var certificate = fs.readFileSync( certificatePath );
 var server = https.createServer({
     key: privateKey,
     cert: certificate
-}, app).listen(SSLPORT);
+}, app)
 
-var io  = require('socket.io')(server, { log: false });
+const listener = server.listen(PORT, "0.0.0.0", () => {
+	console.log(`[i] VoIP server is now running on port ${listener.address().port}`);
+	console.log(`[i] Now visit https://${listener.address().address}:${listener.address().port} in your browser and ignore SSL Warning.`)
+});
 
-// Redirect from http to https
-var http = require('http');
-http.createServer(function (req, res) {
-    res.writeHead(301, { "Location": "https://" + req.headers['host'] + ":"+ SSLPORT + "" + req.url });
-    res.end();
-}).listen(HTTPPORT);
-
-console.log("Webserver & Socketserver running on port: "+SSLPORT+ " and "+ HTTPPORT);
+var io = require('socket.io')(server, { log: false });
 
 //Handel connections
 io.sockets.on('connection', function (socket) {
-	console.log("New user connected:", socket.id);
+	console.log("[i] New user connected:", socket.id);
 	io.emit('clients', io.engine.clientsCount);
 
 	socket.on('disconnect', function () {
-		console.log("User disconnected:", socket.id);
+		console.log("[i] User disconnected:", socket.id);
 		socket.broadcast.emit('clients', io.engine.clientsCount);
 	});
 
@@ -49,3 +44,19 @@ io.sockets.on('connection', function (socket) {
 		//io.emit("d", data); //Send to all clients (4 debugging)
 	});
 });
+
+// Clean Exit
+
+let exitevent = [ "SIGINT", "SIGTRAP" ];
+
+exitevent.forEach(event => {
+	process.on(event, exit);
+});
+
+function exit() {
+	console.warn("[w] Server is now going down! Closing server...");
+	server.close(() => {
+		console.log("[i] Server closed. Exitting...");
+		process.exit(0);
+	});
+}
