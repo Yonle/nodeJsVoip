@@ -1,6 +1,9 @@
 # Fork Notice
 Read this file to know what i modify and what it do.
 
+## Some notice
+I see the original repos seems no changes anymore. Unfortunately some API is deprecated and well, I change it a bit. I hope you enjoy it. 
+
 ## Backend Changes
 ### 1. I modified `server.js`
 Due to newer Socket.io listen function, I changed these code at line 24:
