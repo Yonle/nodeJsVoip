@@ -27,7 +27,7 @@ Due to deprecated old API `navigator.getUserMedia`, I replaced it with the new o
  - BiquadFilter
  - DynamicCompression
 
-Disabled those function for Actual Mic audio quality. Keep in mind that this will transmit a lot of data in second. Not only that, Noice Suppression is not available due to disabled of these function and can caused your Speaker Sound to be listened by your mic.
+Disabled those function for Actual Mic audio quality. Keep in mind that this will transmit a lot of data in second. Not only that, Noise Suppression is not available because i disabled these function and can caused your Speaker Sound to be listened by your mic.
 
 ### 4. I removed `socket.io.js`
 From earlier, Socket.io already gave a path to their socket.io script from beginning: `/socket.io/socket.io.js`. So i guess we do not need it either way.
