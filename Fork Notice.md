@@ -30,12 +30,12 @@ Added `input` with `button` element for changing room.
 ### 2. I modified `main.css`
 Because i don't want to get any stress, The **Start Button** and both Input and Output canvas is modified with this blank file into actual CSS file.
 ### 3. I modified `voip.js`
-Due to deprecated old API `navigator.getUserMedia`, I replaced it with the new ones as `navigator.mediaDevices.getUserMedia`, Also disabled those function for clean/fresh audio quality:
+Due to deprecated old API `navigator.getUserMedia`, I replaced it with the new ones as `navigator.mediaDevices.getUserMedia`, Also removed those function for clean/fresh audio quality:
  - AudioOscillator
  - BiquadFilter
  - DynamicCompression
 
-Keep in mind that this will transmit a lot of data in second. Not only that, Noise Suppression is not available because i disabled these function and can caused your Speaker Sound to be listened by your mic.
+Keep in mind that this will transmit a lot of data in second. Not only that, Noise Suppression is not available because i removed these function and can caused your Speaker Sound to be listened by your mic.
 
 #### V2.0 Changes
 I added change Room support, Well.

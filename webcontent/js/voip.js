@@ -88,10 +88,6 @@ function startTalking() {
 			micAccessAllowed = true;
 			var liveSource = context.createMediaStreamSource(stream);
 
-		/*	oscillator = context.createOscillator();
-			oscillator.type = 'sine';
-			oscillator.frequency.value = 440; // value in hertz
-		*/
 			// create a ScriptProcessorNode
 			if (!context.createScriptProcessor) {
 				node = context.createJavaScriptNode(chunkSize, 1, 1);
@@ -143,35 +139,7 @@ function startTalking() {
 				}
 			}
 
-			/* For clean audio from mic, I disabled some code
-			//Lowpass
-			biquadFilter = context.createBiquadFilter();
-			biquadFilter.type = "lowpass";
-			biquadFilter.frequency.value = 3000;
-
-			oscillator.connect(biquadFilter);
-			//oscillator.start();
-			*/
-
-			//liveSource.connect(biquadFilter);
-			
 			liveSource.connect(node);
-			// Connect to AudioNode
-
-
-			/* Enable for dynamic compression
-			//Dynamic Compression
-			dynCompressor = context.createDynamicsCompressor();
-			dynCompressor.threshold.value = -25;
-			dynCompressor.knee.value = 9;
-			dynCompressor.ratio.value = 8;
-			dynCompressor.reduction.value = -20;
-			dynCompressor.attack.value = 0.0;
-			dynCompressor.release.value = 0.25;
-
-			biquadFilter.connect(dynCompressor); //biquadFilter infront
-			dynCompressor.connect(node);
-			*/
 			node.connect(context.destination);
 		}).catch(function (err) {
 			console.log(err);
