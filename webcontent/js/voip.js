@@ -5,7 +5,7 @@ var mySampleRate = 48000; //Samplerate outgoing audio (common: 8000, 12000, 1600
 var myBitRate = 16; //8,16,32 - outgoing bitrate
 var myMinGain = 0 / 100; //min Audiolvl, Used for Ignoring Silence. Set as 3 / 100 for Ignoring Silence
 var micAccessAllowed = false; //Is set to true if user granted access
-var chunkSize = 2048; // Audio ChunkSize. Default is 2048. Less = Low latency, Big = Better Audio, But i recommend to put big chunkSize. All chunksize: 1024, 2048, 4096
+var chunkSize = 1024; // Audio ChunkSize. Default is 1024. Less = Low latency, Big = Better Audio, But i recommend to put big chunkSize. All chunksize: 1024, 2048, 4096
 
 var downSampleWorker = new Worker('./js/voipWorker.js');
 var upSampleWorker = new Worker('./js/voipWorker.js');
