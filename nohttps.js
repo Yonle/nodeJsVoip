@@ -1,13 +1,11 @@
 /* CONFIG */
 var PORT = process.env.PORT || 8080;
-var privateKeyPath = "./cert/key.pem"; //Default "./cert/key.pem"
-var certificatePath = "./cert/cert.pem"; //Default "./cert/cert.pem"
 
 /* END CONFIG */
 
 var fs = require('fs');
 var express = require('express');
-var https = require('https');
+var https = require('http');
 var roomSize = new Map();
 var app = express();
 
@@ -22,8 +20,10 @@ var server = https.createServer({
 }, app)
 
 const listener = server.listen(PORT, "0.0.0.0", () => {
+	console.warn('[w] ====== WARNING!!!! ======');
+	console.warn(`[w] You tried to run non-https server of nodeJsVoip. Unfortunately, This is seems impossible because some browser only allow Microphone permission in https(SSL) connection, And sometime they also allow mic permission from localhost only. Fortunately, If you run this script on heroku, vercel, kintohub and etc, Simply ignore this message.`);
 	console.log(`[i] VoIP server is now running on port ${listener.address().port}`);
-	console.log(`[i] Now visit https://${listener.address().address}:${listener.address().port} in your browser and ignore SSL Warning.`)
+	console.log(`[i] Now visit http://${listener.address().address}:${listener.address().port} in your browser and ignore SSL Warning.`)
 });
 
 var io = require("socket.io")(server, { log: false });
