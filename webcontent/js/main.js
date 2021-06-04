@@ -12,11 +12,11 @@ $(document).ready(function () {
 	
 	var micaudio = document.getElementById("micaudio");
 	var micctx = micaudio.getContext("2d");
-	micctx.fillStyle = "#FF0000";
+	micctx.fillStyle = "#703642";
 
 	var incaudio = document.getElementById("incaudio");
 	var incctx = incaudio.getContext("2d");
-	incctx.fillStyle = "#FF0000";
+	incctx.fillStyle = "#703642";
 
 	onMicRawAudio = function (audioData, soundcardSampleRate) { //Data right after mic input
 		micctx.clearRect(0, 0, micaudio.width, micaudio.height);
