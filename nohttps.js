@@ -5,19 +5,13 @@ var PORT = process.env.PORT || 8080;
 
 var fs = require('fs');
 var express = require('express');
-var https = require('http');
+var http = require('http');
 var roomSize = new Map();
 var app = express();
 
 app.use(express.static(__dirname + '/webcontent'));
 
-var privateKey = fs.readFileSync( privateKeyPath );
-var certificate = fs.readFileSync( certificatePath );
-
-var server = https.createServer({
-    key: privateKey,
-    cert: certificate
-}, app)
+var server = http.createServer(app);
 
 const listener = server.listen(PORT, "0.0.0.0", () => {
 	console.warn('[w] ====== WARNING!!!! ======');
