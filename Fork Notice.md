@@ -15,7 +15,10 @@ Into:
 var io = require('socket.io')(server, { log: false });
 ```
 #### V2.0 Changes
-Added Room handler as well. and added `roomSize` for calculating User size. Renamed `server.js` as `index.js`
+Added Room handler as well. and added `roomSize` for calculating User size. Renamed `server.js` as `index.js`. Changed transport from **HTTP Polling(The default)** as **Websocket** since there's a good reason why i use Websocket:
+ - VoIP, is **NOT** Better with HTTP Polling, Since they're upgrade everytime, A audio will got cut a little and can caused a fatal issue.
+ - We do not want to send a lot of request to server. 
+ - VoIP in Web, Only better with **Websocket**.
 
 ## Frontend Changes
 ### 1. I modified `index.html`

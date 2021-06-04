@@ -26,7 +26,7 @@ const listener = server.listen(PORT, "0.0.0.0", () => {
 	console.log(`[i] Now visit https://${listener.address().address}:${listener.address().port} in your browser and ignore SSL Warning.`)
 });
 
-var io = require("socket.io")(server, { log: false });
+var io = require("socket.io")(server, { log: false, transport: ["websocket"] });
 
 //Handel connections
 io.on('connection', function (socket) {
