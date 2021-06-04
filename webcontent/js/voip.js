@@ -1,4 +1,4 @@
-var socketIO = io({ transport: ["websocket"] });
+var socketIO = io({ transport: ["websocket"], update: false });
 var recentRoom = "MAIN";
 var soundcardSampleRate = null; //Sample rate from the soundcard (is set at mic access)
 var mySampleRate = 48000; //Samplerate outgoing audio (common: 8000, 12000, 16000, 24000, 32000, 48000)
