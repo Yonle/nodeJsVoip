@@ -44,7 +44,7 @@ socketIO.on('connect', function (socket) {
 
 	socketIO.on('clients', function (cnt) {
 		document.getElementById("roomInput").value = recentRoom;
-		document.getElementById("clients").innerHTML = `<b>${cnt-1}</b> user in <b>${recentRoom}</b> Room.`;
+		document.getElementById("clients").innerHTML = `<b>${cnt}</b> user in <b>${recentRoom}</b> Room.`;
 	});
 });
 

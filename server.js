@@ -8,6 +8,7 @@ var certificatePath = "./cert/cert.pem"; //Default "./cert/cert.pem"
 var fs = require('fs');
 var express = require('express');
 var https = require('https');
+var roomSize = new Map();
 var app = express();
 
 app.use(express.static(__dirname + '/webcontent'));
@@ -32,12 +33,22 @@ io.on('connection', function (socket) {
 	let roomID = "MAIN";
 
 	socket.join(roomID);
-	io.to(roomID).emit('clients', io.to(roomID).engine.clientsCount);
+	roomSize.set(roomID, (roomSize.get(roomID)||0)+1);
+	io.to(roomID).emit('clients', roomSize.get(roomID));
 	socket.on('room:change', name => {
 		socket.leave(roomID);
+		roomSize.set(roomID, (roomSize.get(roomID)||0)-1);
+		io.to(roomID).emit('clients', roomSize.get(roomID));
+		if (!roomSize.get(roomID)) roomSize.delete(roomID);
 		roomID = name.toUpperCase();
 		socket.join(roomID);
-		io.to(roomID).emit('clients', io.to(roomID).engine.clientsCount);
+		roomSize.set(roomID, (roomSize.get(roomID)||0)+1);
+		io.to(roomID).emit('clients', roomSize.get(roomID));
+	});
+	socket.on('disconnect', () => {
+		roomSize.set(roomID, (roomSize.get(roomID)||0)-1);
+		io.to(roomID).emit('clients', roomSize.get(roomID));
+		if (!roomSize.get(roomID)) roomSize.delete(roomID);
 	});
 	socket.on('d', data => {
 		socket.to(roomID).emit('d', data);
