@@ -21,7 +21,7 @@ var server = https.createServer({
     cert: certificate
 }, app)
 
-const listener = server.listen(PORT, "0.0.0.0", () => {
+const listener = server.listen(PORT, () => {
 	console.log(`[i] VoIP server is now running on port ${listener.address().port}`);
 	console.log(`[i] Now visit https://${listener.address().address}:${listener.address().port} in your browser and ignore SSL Warning.`)
 });
