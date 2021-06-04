@@ -31,6 +31,7 @@ Due to deprecated old API `navigator.getUserMedia`, I replaced it with the new o
  - AudioOscillator
  - BiquadFilter
  - DynamicCompression
+ - Mis Permission Allowed Trigger
 
 Keep in mind that this will transmit a lot of data in second. Not only that, Noise Suppression is not available because i disabled these function and can caused your Speaker Sound to be listened by your mic.
 

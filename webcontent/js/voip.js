@@ -27,7 +27,7 @@ socketIO.on('connect', function (socket) {
 		document.getElementById("roomInput").value = "MAIN";
 	}
 	socketIO.on('d', function (data) {
-		if (micAccessAllowed) {
+		//if (micAccessAllowed) {
 			var audioData = onUserCompressedAudio(data["a"], data["sid"], data["s"], data["b"]);
 			upSampleWorker.postMessage({
 				"inc": true,
@@ -39,7 +39,7 @@ socketIO.on('connect', function (socket) {
 				"inBitRate": data["b"],
 				"p": data["p"]
 			});
-		}
+		//}
 	});
 
 	socketIO.on('clients', function (cnt) {
