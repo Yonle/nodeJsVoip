@@ -15,7 +15,7 @@ Into:
 var io = require('socket.io')(server, { log: false });
 ```
 #### V2.0 Changes
-Added Room handler as well. and added `roomSize` for calculating User size.
+Added Room handler as well. and added `roomSize` for calculating User size. Renamed `server.js` as `index.js`
 
 ## Frontend Changes
 ### 1. I modified `index.html`
