@@ -12,7 +12,7 @@ var io = require('socket.io').listen(server, { log: false });
 ```
 Into:
 ```js
-var io = require('socket.io')(server, { log: false });
+var io = require('socket.io')(server, { log: false, transport: ["websocket"] });
 ```
 #### V2.0 Changes
 Added Room handler as well. and added `roomSize` for calculating User size. Renamed `server.js` as `index.js`. Changed transport from **HTTP Polling(The default)** as **Websocket** since there's a good reason why i use Websocket:
