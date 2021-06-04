@@ -17,9 +17,6 @@ var io = require('socket.io')(server, { log: false });
 #### V2.0 Changes
 Added Room handler as well. and added `roomSize` for calculating User size. Renamed `server.js` as `index.js`
 
-### 2. I copied `server.js` to `nohttps.js`
-Some hosting service like Heroku, Does not support forwarding from Unverified SSL. So i split those file as 2 file.
-
 ## Frontend Changes
 ### 1. I modified `index.html`
 I added **Viewport** so mobile user can visit it in responsive page. Also changed width of two canvas (Both Input and output audio) into `100%` so both canvas will have a same width with user screen width. Changed Socket.io script path (`/socket.io/socket.io.js`), And moved **Start Taking** to Bottom Screen.
