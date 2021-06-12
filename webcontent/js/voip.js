@@ -23,7 +23,7 @@ socketIO.on('connect', function (socket) {
 	console.log('socket connected!');
 	socketConnected = true;
 	if (recentRoom) {
-		socketIO.emit('room:change', recentRoom);
+		socketIO.volatile.emit('room:change', recentRoom);
 		document.getElementById("roomInput").value = "MAIN";
 	}
 	socketIO.on('d', function (data) {
@@ -57,7 +57,7 @@ downSampleWorker.addEventListener('message', function (e) {
 	if (socketConnected) {
 		var data = e.data;
 		var audioData = onMicCompressedAudio(data[0].buffer, mySampleRate, myBitRate)
-		socketIO.emit("d",
+		socketIO.volatile.emit("d",
 			{
 				"a": audioData, //Audio data
 				"s": mySampleRate,

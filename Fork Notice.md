@@ -19,6 +19,7 @@ Added Room handler as well. and added `roomSize` for calculating User size. Rena
  - VoIP, is **NOT** Better with HTTP Polling, Since they're upgrade everytime, A audio will got cut a little and can caused a fatal issue.
  - We do not want to send a lot of request to server. 
  - VoIP in Web, Only better with **Websocket**.
+I also using volatile event which is a feature by socket.io. More info can found at https://socket.io/docs/v4/emitting-events/#Volatile-events
 
 ## Frontend Changes
 ### 1. I modified `index.html`
@@ -43,8 +44,7 @@ I added change Room support, Well.
 From earlier, Socket.io already gave a path to their socket.io script from beginning: `/socket.io/socket.io.js`. So i guess we do not need it either way.
 
 ### 5. I modified `main.js`
-This file changed on version v2.0. Also like i said before, Added Submit button trigger so we can change room.
-
+This file changed on version v2.0. Also like i said before, Added Submit button trigger so we can change room. Also using volatile event feature by socket.io
 ## Any question?
 I active both Discord and Telegram. So you can ask at those chat platform:
 - [Discord Server](https://discord.gg/9S3ZCDR)

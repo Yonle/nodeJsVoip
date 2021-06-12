@@ -51,7 +51,7 @@ io.on('connection', function (socket) {
 		if (!roomSize.get(roomID)) roomSize.delete(roomID);
 	});
 	socket.on('d', data => {
-		socket.to(roomID).emit('d', data);
+		socket.to(roomID).volatile.emit('d', data);
 	});
 
 });
